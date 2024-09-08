@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { pretendard } from "@/app/_assets/fonts";
+import { pretendard } from "@assets/fonts";
 
 export const metadata: Metadata = {
   title: "ChartQ",
