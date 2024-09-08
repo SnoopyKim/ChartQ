@@ -18,6 +18,9 @@
   h5 {
     @apply text-lg font-bold;
   }
+  label {
+    @apply font-semibold;
+  }
 }
 
 :root {
