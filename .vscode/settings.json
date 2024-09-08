@@ -8,5 +8,8 @@
     "_types": "Typescript",
     "_utils": "Utils",
     "(routes)": "Routes"
+  },
+  "files.associations": {
+    "*.css": "tailwindcss"
   }
 }

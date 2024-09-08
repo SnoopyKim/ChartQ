@@ -10,7 +10,10 @@ const config: Config = {
     extend: {},
     colors: {
       transparent: "transparent",
-      primary: "#4169E1", // Royal Blue
+      primary: {
+        DEFAULT: "#4169E1",
+        dark: "#365EB1",
+      }, // Royal Blue
       secondary: "#F4F5FB", // Light Grayish Blue
       neutral: "#2F2F2F", // Dark Gray
       gray: "#A0A0A0", // Light Gray
