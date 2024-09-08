@@ -2,13 +2,13 @@
 import { useCallback, useEffect, useState } from "react";
 import { createClient } from "@utils/supabase/client";
 import { type User } from "@supabase/supabase-js";
-import clsx from "clsx";
 import Avatar from "./avatar";
+import { PrimaryButton } from "@components/button";
+import { TextField } from "@components/input";
 
 export default function AccountForm({ user }: { user: User | null }) {
   const supabase = createClient();
   const [loading, setLoading] = useState(true);
-  const [fullname, setFullname] = useState<string | null>(null);
   const [username, setUsername] = useState<string | null>(null);
   const [website, setWebsite] = useState<string | null>(null);
   const [avatar_url, setAvatarUrl] = useState<string | null>(null);
@@ -29,7 +29,6 @@ export default function AccountForm({ user }: { user: User | null }) {
       }
 
       if (data) {
-        setFullname(data.full_name);
         setUsername(data.username);
         setWebsite(data.website);
         setAvatarUrl(data.avatar_url);
@@ -51,7 +50,6 @@ export default function AccountForm({ user }: { user: User | null }) {
     avatar_url,
   }: {
     username: string | null;
-    fullname: string | null;
     website: string | null;
     avatar_url: string | null;
   }) {
@@ -60,7 +58,6 @@ export default function AccountForm({ user }: { user: User | null }) {
 
       const { error } = await supabase.from("profiles").upsert({
         id: user?.id as string,
-        full_name: fullname,
         username,
         website,
         avatar_url,
@@ -76,7 +73,7 @@ export default function AccountForm({ user }: { user: User | null }) {
   }
 
   return (
-    <div className="flex flex-col w-[400px] gap-4 items-stretch">
+    <div className="flex flex-col w-80 gap-4 items-stretch">
       <div className="flex justify-center">
         <Avatar
           uid={user?.id ?? null}
@@ -84,87 +81,41 @@ export default function AccountForm({ user }: { user: User | null }) {
           size={150}
           onUpload={(url) => {
             setAvatarUrl(url);
-            updateProfile({ fullname, username, website, avatar_url: url });
+            updateProfile({ username, website, avatar_url: url });
           }}
         />
       </div>
-      <div className="flex items-center">
-        <label className="w-24" htmlFor="email">
-          Email
-        </label>
-        <input
-          className={clsx(
-            "flex-1 px-4 py-2 bg-secondary rounded ring-neutral ring-1 outline-none caret-neutral text-neutral",
-            "focus:ring-primary focus:ring-2"
-          )}
-          id="email"
-          type="text"
-          value={user?.email}
-          disabled
-        />
-      </div>
-      <div className="flex items-center">
-        <label className="w-24" htmlFor="fullName">
-          Full Name
-        </label>
-        <input
-          className={clsx(
-            "flex-1 px-4 py-2 bg-secondary rounded ring-neutral ring-1 outline-none caret-neutral text-neutral",
-            "focus:ring-primary focus:ring-2"
-          )}
-          id="fullName"
-          type="text"
-          value={fullname || ""}
-          onChange={(e) => setFullname(e.target.value)}
-        />
-      </div>
-      <div className="flex items-center">
-        <label className="w-24" htmlFor="username">
-          Username
-        </label>
-        <input
-          className={clsx(
-            "flex-1 px-4 py-2 bg-secondary rounded ring-neutral ring-1 outline-none caret-neutral text-neutral",
-            "focus:ring-primary focus:ring-2"
-          )}
-          id="username"
-          type="text"
-          value={username || ""}
-          onChange={(e) => setUsername(e.target.value)}
-        />
-      </div>
-      <div className="flex items-center">
-        <label className="w-24" htmlFor="website">
-          Website
-        </label>
-        <input
-          className={clsx(
-            "flex-1 px-4 py-2 bg-secondary rounded ring-neutral ring-1 outline-none caret-neutral text-neutral",
-            "focus:ring-primary focus:ring-2"
-          )}
-          id="website"
-          type="url"
-          value={website || ""}
-          onChange={(e) => setWebsite(e.target.value)}
-        />
-      </div>
-
-      <button
-        onClick={() =>
-          updateProfile({ fullname, username, website, avatar_url })
-        }
+      <TextField
+        label="Email"
+        id="email"
+        type="email"
+        value={user?.email}
+        disabled
+      />
+      <TextField
+        label="Username"
+        id="username"
+        type="text"
+        value={username || ""}
+        onChange={(e) => setUsername(e.target.value)}
+      />
+      <TextField
+        label="Website"
+        id="website"
+        type="url"
+        value={website || ""}
+        onChange={(e) => setWebsite(e.target.value)}
+      />
+      <PrimaryButton
+        onClick={() => updateProfile({ username, website, avatar_url })}
         disabled={loading}
-        className="px-4 py-2 rounded bg-primary text-secondary hover:bg-primary-dark"
       >
         {loading ? "Loading ..." : "Update"}
-      </button>
+      </PrimaryButton>
       <form action="/auth/signout" method="post">
-        <button
-          type="submit"
-          className="px-4 py-2 rounded bg-primary text-secondary hover:bg-primary-dark w-full"
-        >
+        <PrimaryButton type="submit" className="w-full">
           Sign out
-        </button>
+        </PrimaryButton>
       </form>
     </div>
   );

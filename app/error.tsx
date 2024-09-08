@@ -1,6 +1,7 @@
 "use client"; // Error boundaries must be Client Components
 
 import { useEffect } from "react";
+import { PrimaryButton } from "./_components/button";
 
 export default function ErrorPage({
   error,
@@ -24,14 +25,14 @@ export default function ErrorPage({
           <br />
           {error.message.split("\n")[1]}
         </h2>
-        <button
+        <PrimaryButton
           onClick={
             // Attempt to recover by trying to re-render the segment
             () => reset()
           }
         >
           Try again
-        </button>
+        </PrimaryButton>
       </div>
     </div>
   );
