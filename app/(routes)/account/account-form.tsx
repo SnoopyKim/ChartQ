@@ -3,6 +3,7 @@ import { useCallback, useEffect, useState } from "react";
 import { createClient } from "@utils/supabase/client";
 import { type User } from "@supabase/supabase-js";
 import clsx from "clsx";
+import Avatar from "./avatar";
 
 export default function AccountForm({ user }: { user: User | null }) {
   const supabase = createClient();
@@ -76,6 +77,17 @@ export default function AccountForm({ user }: { user: User | null }) {
 
   return (
     <div className="flex flex-col w-[400px] gap-4 items-stretch">
+      <div className="flex justify-center">
+        <Avatar
+          uid={user?.id ?? null}
+          url={avatar_url}
+          size={150}
+          onUpload={(url) => {
+            setAvatarUrl(url);
+            updateProfile({ fullname, username, website, avatar_url: url });
+          }}
+        />
+      </div>
       <div className="flex items-center">
         <label className="w-24" htmlFor="email">
           Email
