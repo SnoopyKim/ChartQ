@@ -1,7 +1,7 @@
 "use client"; // Error boundaries must be Client Components
 
 import { useEffect } from "react";
-import { PrimaryButton } from "./_components/button";
+import { PrimaryButton } from "./_components/button/primary";
 
 export default function ErrorPage({
   error,

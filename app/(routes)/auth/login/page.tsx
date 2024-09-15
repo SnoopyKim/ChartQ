@@ -1,5 +1,5 @@
 import { signin, signup } from "./actions";
-import { PrimaryButton } from "@components/button";
+import { PrimaryButton } from "@components/button/primary";
 import { TextField } from "@components/input";
 
 export default function LoginPage() {

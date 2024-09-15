@@ -3,8 +3,8 @@ import { useCallback, useEffect, useState } from "react";
 import { createClient } from "@utils/supabase/client";
 import { type User } from "@supabase/supabase-js";
 import Avatar from "./avatar";
-import { PrimaryButton } from "@components/button";
 import { TextField } from "@components/input";
+import { PrimaryButton } from "@/app/_components/button/primary";
 
 export default function AccountForm({ user }: { user: User | null }) {
   const supabase = createClient();

@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import Nav from "../_components/nav";
 import FirstHeroPage from "./_page/first";
 import { AnimatePresence } from "framer-motion";
 
@@ -54,13 +53,8 @@ const Hero = () => {
   };
 
   return (
-    <div className="relative h-screen overflow-hidden">
-      <Nav />
-      {/* Page Container */}
-      <div id="page-container" className="relative h-full">
-        <AnimatePresence mode="wait">{renderCurrentPage()}</AnimatePresence>
-      </div>
-
+    <div id="page-container" className="relative h-[calc(100vh-64px)]">
+      <AnimatePresence mode="wait">{renderCurrentPage()}</AnimatePresence>
       {/* Scroll Indicator */}
       <div className="fixed right-8 top-1/2 transform -translate-y-1/2 z-20 flex flex-col items-center space-y-4">
         {Array.from({ length: totalPages }).map((_, idx) => (

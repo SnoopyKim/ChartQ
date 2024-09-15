@@ -26,6 +26,8 @@ export default function FirstHeroPage() {
       <div className="relative w-1/2 h-1/2">
         <Image
           src={chartgif}
+          unoptimized
+          priority
           fill
           alt={"chartq"}
           style={{ objectFit: "contain" }}

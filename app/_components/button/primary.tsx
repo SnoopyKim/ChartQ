@@ -1,12 +1,12 @@
 import clsx from "clsx";
-import React from "react";
+import Link, { LinkProps } from "next/link";
+import React, { ButtonHTMLAttributes, ReactNode } from "react";
 
-interface PrimaryButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement> {}
-export default function PrimaryButton({
+export function PrimaryButton({
   className,
+  children,
   ...props
-}: PrimaryButtonProps) {
+}: ButtonHTMLAttributes<HTMLButtonElement>) {
   return (
     <button
       className={clsx(
@@ -16,7 +16,28 @@ export default function PrimaryButton({
       )}
       {...props}
     >
-      {props.children}
+      {children}
     </button>
+  );
+}
+
+export function PrimaryLinkButton({
+  href,
+  className,
+  children,
+  ...props
+}: LinkProps & { className?: string; children: ReactNode }) {
+  return (
+    <Link
+      href={href}
+      className={clsx(
+        "px-4 py-2 rounded font-semibold bg-primary text-secondary hover:bg-primary-dark ",
+        "disabled:bg-gray disabled:pointer-events-none",
+        className
+      )}
+      {...props}
+    >
+      {children}
+    </Link>
   );
 }
